@@ -6,7 +6,7 @@ import regex
 
 import data.db_session as db_session
 from data.team import Team
-from services import bowler_services
+from services import bowler_services, team_service
 
 
 def new_week():
@@ -55,16 +55,6 @@ def new_week():
 
     print(f"out of that while loop - date: {date_as_datetime}")
 
-def add_team(team_name):
-    new_team = Team(name=team_name)
-    session = db_session.create_session()
-    try:
-        session.add(new_team)
-        session.commit()
-    finally:
-        session.close()
-
-
 def get_teams():
     session = db_session.create_session()
     query = sa.select(Team)
@@ -100,7 +90,7 @@ if __name__ == "__main__":
     elif args.bowler:
         bowler_services.add_bowler(args.bowler)
     elif args.team:
-        add_team(args.team)
+        team_service.add_team(args.team)
     elif args.resume:
         print("resuming data entry")
     elif args.teams:
