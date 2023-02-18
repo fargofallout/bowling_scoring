@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from typing import Optional
 
 from data.bowler import Bowler
 import data.db_session as db_session
@@ -31,3 +32,19 @@ def bowler_search(search_string) -> list:
     finally:
         session.close()
     return list(bowler_hits)
+
+
+def get_single_bowler(search_string) -> Optional[int]:
+    session = db_session.create_session()
+    try:
+        bowler_hit = session.scalars(sa.select(Bowler).filter(Bowler.name == search_string)).one_or_none()
+    finally:
+        session.close()
+
+    if bowler_hit:
+        print("matched")
+        return bowler_hit.id
+    else:
+        print("no match")
+        return
+

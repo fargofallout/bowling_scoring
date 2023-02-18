@@ -4,7 +4,7 @@ import sqlalchemy as sa
 
 import data.db_session as db_session
 from data.team import Team
-from services import bowler_services, team_service, utils, season_service
+from services import bowler_services, team_service, utils, season_service, currents_service
 
 def new_week():
     new_date = utils.get_date()
@@ -20,7 +20,10 @@ def setup_db():
 def initial_setup():
     print("creating me and setting me as the current bowler")
     bowler_name = input("my name (first last): ")
+    bowler_name = bowler_name.strip()
     bowler_services.add_bowler(bowler_name)
+    new_id = bowler_services.get_single_bowler(bowler_name)
+    currents_service.set_current_bowler(new_id)
 
 
 if __name__ == "__main__":
@@ -29,7 +32,8 @@ if __name__ == "__main__":
     parser.add_argument("-ab", "--bowler", help="Name of new bolwer to add.")
     parser.add_argument("-d", "--display", help="Display a week's games.", action="store_true")
     parser.add_argument("-g", "--game", help="Add a game.", action="store_true")
-    parser.add_argument("-gb", "--bowlers", help="Get all bowlers", action="store_true")
+    parser.add_argument("-gab", "--bowlers", help="Get all bowlers", action="store_true")
+    parser.add_argument("-gsb", "--getsinglebowler", help="Exact bowler name to search for.")
     parser.add_argument("-i", "--initialize", help="Initial setup.", action="store_true")
     parser.add_argument("-l", "--teams", help="List all teams.", action="store_true")
     parser.add_argument("-n", "--new", help="Begin a new week.", action="store_true")
@@ -70,4 +74,6 @@ if __name__ == "__main__":
         bowler_hits = bowler_services.bowler_search(args.searchbowler)
         for each_hit in bowler_hits:
             print(f"id: {each_hit.id}, name: {each_hit.name}")
+    elif args.getsinglebowler:
+        bowler_services.get_single_bowler(args.getsinglebowler)
 

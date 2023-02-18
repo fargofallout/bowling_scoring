@@ -4,3 +4,4 @@
 venv/
 .idea/
 *.sqlite
+*ds_store
