@@ -1,7 +1,6 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from data.team import Team
 from data.modelbase import SqlAlchemyBase
 
 
@@ -11,4 +10,6 @@ class Team_Season(SqlAlchemyBase):
     season: Mapped[str] = mapped_column()
 
     team_id: Mapped[int] = mapped_column(ForeignKey("bowler.id"))
-    team: Mapped["Team"] = relationship(back_populates="bowler_season")
+
+    # don't think I'll need this relationship
+    # team: Mapped["Team"] = relationship(back_populates="bowler_season")

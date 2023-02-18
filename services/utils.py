@@ -2,7 +2,7 @@ import datetime
 import regex
 
 
-def get_date():
+def get_date() -> datetime:
     date_regex_1 = regex.compile(r"(\d\d\d\d)(\.|-)(\d+)(\.|-)(\d+)")
     date_regex_2 = regex.compile(r"(\d+)/(\d+)/(\d\d\d\d)")
     print("Enter the date of the games, or enter 'today' to use today")
@@ -47,4 +47,22 @@ def get_date():
             valid_input = False
 
     return date_as_datetime
+
+
+def get_week_num() -> int:
+    num_regex = regex.compile(r"\d{1,2}")
+    week_number = input("Week number: ")
+    valid_input = False
+    while not valid_input:
+        week_number = week_number.strip()
+        week_num_match = num_regex.search(week_number)
+
+        if not week_num_match:
+            week_number = "Not a valid week. Try again: "
+            valid_input = False
+        else:
+            week_number = int(week_number)
+            valid_input = True
+
+    return week_number
 

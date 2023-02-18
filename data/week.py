@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from data.modelbase import SqlAlchemyBase

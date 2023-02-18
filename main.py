@@ -4,11 +4,17 @@ import sqlalchemy as sa
 
 import data.db_session as db_session
 from data.team import Team
-from services import bowler_services, team_service, utils, season_service, currents_service
+from services import bowler_services, team_service, utils, season_service, currents_service, week_service
 
 def new_week():
     new_date = utils.get_date()
     print(f"out of that while loop - date: {new_date}")
+
+
+def add_week():
+    week_number = utils.get_week_num()
+    date = utils.get_date()
+    week_service.add_week(week_number, date)
 
 
 def setup_db():
@@ -42,6 +48,7 @@ if __name__ == "__main__":
     parser.add_argument("-sb", "--searchbowler", help="Bowler name to search for.")
     parser.add_argument("-t", "--team", help="Name of new team to add.")
     parser.add_argument("-ts", "--teamseason", help="Add a season for a team.", action="store_true")
+    parser.add_argument("-w", "--addweek", help="Add a week", action="store_true")
 
     args = parser.parse_args()
 
@@ -76,4 +83,6 @@ if __name__ == "__main__":
             print(f"id: {each_hit.id}, name: {each_hit.name}")
     elif args.getsinglebowler:
         bowler_services.get_single_bowler(args.getsinglebowler)
+    elif args.addweek:
+        add_week()
 
