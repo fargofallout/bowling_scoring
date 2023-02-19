@@ -10,7 +10,7 @@ class Currents(SqlAlchemyBase):
 
     current_bowler: Mapped[int] = mapped_column(ForeignKey("bowler.id"))
     current_team: Mapped[int] = mapped_column(ForeignKey("team.id"))
-    curent_week: Mapped[int] = mapped_column(ForeignKey("week.id"))
+    current_week: Mapped[int] = mapped_column(ForeignKey("week.id"))
     current_season: Mapped[int] = mapped_column(ForeignKey("season.id"))
 
     # I don't think I need the relationships since this is a helper table and no reference

@@ -1,20 +1,21 @@
 import sqlalchemy as sa
+from typing import Optional
 
 from data.team import Team
 import data.db_session as db_session
 
 
-def add_team(team_name: str) -> None:
+def add_team(team_name: str) -> Optional[Team]:
 
     new_team = Team(name=team_name)
     session = db_session.create_session()
-
     try:
         session.add(new_team)
         session.commit()
     finally:
         session.close()
 
+    return new_team
 
 def get_teams() -> list:
     session = db_session.create_session()
@@ -22,7 +23,7 @@ def get_teams() -> list:
         all_teams = session.scalars(sa.select(Team)).all()
     finally:
         session.close()
-    return all_teams
+    return list(all_teams)
 
     # this creates a list of items of type <data.team.Team object
     # it can be iterated over and you can pull out each_item.id or whatever,

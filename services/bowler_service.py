@@ -5,7 +5,7 @@ from data.bowler import Bowler
 import data.db_session as db_session
 
 
-def add_bowler(bowler_name):
+def add_bowler(bowler_name) -> Optional[Bowler]:
     new_bowler = Bowler(name=bowler_name)
     session = db_session.create_session()
     try:
@@ -13,6 +13,8 @@ def add_bowler(bowler_name):
         session.commit()
     finally:
         session.close()
+
+    return new_bowler
 
 
 def get_all_bowlers() -> list:
