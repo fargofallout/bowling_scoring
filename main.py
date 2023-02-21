@@ -8,9 +8,12 @@ from data.team import Team
 from services import bowler_service, team_service, utils, season_service, currents_service, week_service
 
 def new_week():
-    current_week = currents_service.get_current_season()
-    all_weeks = week_service.get_all_weeks(current_week)
+    current_season = currents_service.get_current_season()
+    all_weeks = week_service.get_all_weeks(current_season)
     selected_week = utils.display_weeks(all_weeks)
+
+    all_teams = team_service.get_teams()
+    selected_team = utils.display_teams(all_teams)
 
 
 def add_week():
@@ -63,7 +66,7 @@ if __name__ == "__main__":
     # parser.add_argument("-d", "--display", help="Display a week's games.", action="store_true")
     # parser.add_argument("-g", "--game", help="Add a game.", action="store_true")
     # parser.add_argument("-gab", "--bowlers", help="Get all bowlers", action="store_true")
-    # parser.add_argument("-gsb", "--getsinglebowler", help="Exact bowler name to search for.")
+    parser.add_argument("-gsb", "--getsinglebowler", help="Exact bowler name to search for.")
     parser.add_argument("-i", "--initialize", help="Initial setup.", action="store_true")
     # parser.add_argument("-l", "--teams", help="List all teams.", action="store_true")
     parser.add_argument("-n", "--new", help="Begin a new week.", action="store_true")
@@ -104,8 +107,8 @@ if __name__ == "__main__":
     #     bowler_hits = bowler_services.bowler_search(args.searchbowler)
     #     for each_hit in bowler_hits:
     #         print(f"id: {each_hit.id}, name: {each_hit.name}")
-    # elif args.getsinglebowler:
-    #     bowler_services.get_single_bowler(args.getsinglebowler)
+    elif args.getsinglebowler:
+        bowler_service.get_single_bowler(args.getsinglebowler)
     # elif args.addsingleweek:
     #     add_week()
     elif args.add_all_weeks:

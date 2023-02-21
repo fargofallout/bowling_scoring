@@ -26,7 +26,7 @@ def get_all_bowlers() -> list:
     return list(all_bowlers)
 
 
-def bowler_search(search_string) -> list:
+def bowler_search(search_string: str) -> list:
     session = db_session.create_session()
     search_string = f"%{search_string}%"
     try:
@@ -36,7 +36,7 @@ def bowler_search(search_string) -> list:
     return list(bowler_hits)
 
 
-def get_single_bowler(search_string) -> Optional[int]:
+def get_single_bowler(search_string: str) -> Optional[Bowler]:
     session = db_session.create_session()
     try:
         bowler_hit = session.scalars(sa.select(Bowler).filter(Bowler.name == search_string)).one_or_none()
@@ -44,9 +44,7 @@ def get_single_bowler(search_string) -> Optional[int]:
         session.close()
 
     if bowler_hit:
-        print("matched")
-        return bowler_hit.id
+        return bowler_hit
     else:
         print("no match")
-        return
 
