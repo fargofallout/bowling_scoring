@@ -8,8 +8,9 @@ from data.team import Team
 from services import bowler_service, team_service, utils, season_service, currents_service, week_service
 
 def new_week():
-    new_date = utils.get_date()
-    print(f"out of that while loop - date: {new_date}")
+    current_week = currents_service.get_current_season()
+    all_weeks = week_service.get_all_weeks(current_week)
+    selected_week = utils.display_weeks(all_weeks)
 
 
 def add_week():
@@ -26,6 +27,7 @@ def setup_db():
 
 def initial_setup():
     print("Setup for the rest of 2022-23 - if bowling in 2023-24, need to create that information differently")
+    # TODO: change this so I get the values from the command prompt so I can reuse this in future seasons
     # create season
     season_string = "2022-23"
     the_season = season_service.add_season(season_string)

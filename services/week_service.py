@@ -45,7 +45,10 @@ def get_week(week_num: int) -> Optional[int]:
         return
 
 
-# def get_all_weeks() -> list:
-#     session = db_session.create_session()
-#     try:
-#         all_weeks = session.scalars(sa.select(Week).order_by(Week.week_number))
+def get_all_weeks(season: int) -> list:
+    session = db_session.create_session()
+    try:
+        all_weeks = session.scalars(sa.select(Week).filter(Week.season_id==season).order_by(Week.id)).all()
+    finally:
+        session.close()
+    return list(all_weeks)

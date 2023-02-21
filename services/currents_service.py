@@ -32,3 +32,12 @@ def get_current_bowler() -> int:
         session.close()
 
     return current_user.id
+
+
+def get_current_season() -> int:
+    session = db_session.create_session()
+    try:
+        current_season = session.execute(sa.select(Currents)).scalar_one()
+    finally:
+        session.close()
+    return current_season.id

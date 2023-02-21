@@ -66,3 +66,10 @@ def get_week_num() -> int:
 
     return week_number
 
+
+def display_weeks(all_weeks: list) -> int:
+    print("Week Number\tDate")
+    for each_week in all_weeks:
+        print(f"{each_week.week_number}\t{each_week.date.date()}")
+    # CONTINUE HERE: get user selection for week number
+    return 2
