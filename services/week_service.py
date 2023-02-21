@@ -19,13 +19,13 @@ def add_week(week_num, date) -> Optional[Week]:
     return new_week
 
 
-def add_all_weeks(starting_date: datetime, num_weeks: int) -> None:
+def add_all_weeks(starting_date: datetime, num_weeks: int, season_id: int) -> None:
     session = db_session.create_session()
     try:
         for num in range(num_weeks):
             if num != 0:
                 starting_date = starting_date + datetime.timedelta(days=7)
-            new_week = Week(week_number=num+1, date=starting_date)
+            new_week = Week(week_number=num+1, date=starting_date, season_id=season_id)
             session.add(new_week)
         session.commit()
     finally:
@@ -43,3 +43,9 @@ def get_week(week_num: int) -> Optional[int]:
         return week_search.id
     else:
         return
+
+
+# def get_all_weeks() -> list:
+#     session = db_session.create_session()
+#     try:
+#         all_weeks = session.scalars(sa.select(Week).order_by(Week.week_number))
