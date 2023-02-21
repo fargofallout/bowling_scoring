@@ -26,16 +26,18 @@ def setup_db():
 
 def initial_setup():
     print("Setup for the rest of 2022-23 - if bowling in 2023-24, need to create that information differently")
+    num_weeks = 32
+    starting_date = datetime.datetime(2022, 9, 6)
     bowler_name = "Mike Vacha"
+    week_service.add_all_weeks(starting_date, num_weeks)
     the_bowler = bowler_service.add_bowler(bowler_name)
     team_name = "Big Ern"
     the_team = team_service.add_team(team_name)
-    week_num = "25"
-    the_date = datetime.datetime(2022, 2, 21)
-    the_week = week_service.add_week(week_num, the_date)
+    current_week = 25
+    week_id = week_service.get_week(current_week)
     season_string = "2022-23"
     the_season = season_service.add_season(season_string)
-    currents_service.create_current(the_bowler.id, the_team.id, the_week.id, the_season.id)
+    currents_service.create_current(the_bowler.id, the_team.id, week_id, the_season.id)
 
 
 if __name__ == "__main__":
