@@ -103,13 +103,13 @@ def display_teams(all_teams: list) -> int:
     user_team = 0
     while not valid_team:
         print("\nEnter the team number of tonight's opponent from the list above.")
-        print("If the theam is not in the list, enter -1.")
+        print("If the team is not in the list, enter -1.")
         user_team = input("Team number: ")
         user_team = user_team.strip()
 
         if user_team == "-1":
             print("need to create a new team")
-            team_hit = team_service.search_for_team("big ern")
+            team_hit = team_service.search_for_team("bigern")
             print(team_hit)
         elif user_team.isdigit() and user_team in all_teams_list:
             valid_team = True

@@ -28,13 +28,13 @@ def get_teams() -> list:
 
 def search_for_team(team_name: str) -> list:
     session = db_session.create_session()
+    search_string = f"{team_name}"
     try:
-        # CONTINUE HERE: need to figure out how to search but ignore case
-        team_hits = session.scalars(sa.select(Team).filter(Team.name==team_name)).all()
+        team_hits = session.scalars(sa.select(Team).filter_by(Team.name.like(search_string)).all())
     finally:
         session.close()
 
-    return team_hits
+    return list(team_hits)
 
     # this creates a list of items of type <data.team.Team object
     # it can be iterated over and you can pull out each_item.id or whatever,
