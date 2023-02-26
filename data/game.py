@@ -21,3 +21,5 @@ class Game(SqlAlchemyBase):
     # team: Mapped["Team"] = relationship(back_populates="game")
     # bowler: Mapped["Bowler"] = relationship(back_populates="game")
 
+    def __repr__(self) -> str:
+        return f"Game(id={self.id!r}, score={self.score!r}, date={self.date!r}, week={self.week!r}, season={self.season!r})"

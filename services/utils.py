@@ -96,6 +96,7 @@ def display_teams(all_teams: list) -> int:
 
     # TODO: figure out how to use f strings to make tabular data line up in columns
     print("\n\nTeam Number\tTeam Name")
+    print("0\tCreate New Team")
     for each_team in all_teams:
         print(f"{each_team.id}\t{each_team.name}")
 
@@ -103,17 +104,39 @@ def display_teams(all_teams: list) -> int:
     user_team = 0
     while not valid_team:
         print("\nEnter the team number of tonight's opponent from the list above.")
-        print("If the team is not in the list, enter -1.")
+        print("Choose zero to create a new team.")
         user_team = input("Team number: ")
         user_team = user_team.strip()
 
-        if user_team == "-1":
-            print("need to create a new team")
-            team_hit = team_service.search_for_team("bigern")
-            print(team_hit)
+        if user_team == "0":
+            new_team_created = False
+            while not new_team_created:
+                new_team_name = input("\nEnter the new team name: ")
+                new_team_name = new_team_name.strip()
+                team_hit = team_service.search_for_team(new_team_name)
+                if team_hit:
+                    print("\nThat name already exists in the database.")
+                    user_choice = input("Proceed with creating a team with the same name? Yes/no: ")
+                    user_choice = user_choice.lower().strip()
+                    if user_choice in ["y", "yes"]:
+                        print("creating team with the same name")
+                        new_team_created = True
+                        valid_team = True
+                    elif user_choice in ["n", "no"]:
+                        print("need to provide a new name")
+                    else:
+                        print("not a valid option")
+
+                else:
+                    print("no team with that name - creating team")
+                    new_team_created = True
+                    valid_team = True
+
+
         elif user_team.isdigit() and user_team in all_teams_list:
             valid_team = True
         else:
             print("That is not a valid team number. PLease try again.")
 
+    print("finally got the hell out of there")
     return user_team

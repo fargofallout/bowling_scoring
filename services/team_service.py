@@ -26,11 +26,15 @@ def get_teams() -> list:
     return list(all_teams)
 
 
-def search_for_team(team_name: str) -> list:
+def search_for_team(team_name: str):
     session = db_session.create_session()
     search_string = f"{team_name}"
     try:
-        team_hits = session.scalars(sa.select(Team).filter_by(Team.name.like(search_string)).all())
+
+        team_hits = session.scalars(sa.select(Team).filter(Team.name.like(search_string))).all()
+        # notes: can't figure out a difference between fetchall() and all() - I suppose I could look it up
+        # scalar returns one class object, scalars returns a list of class objects
+        # filter_by() is used for exact matches, filter() is for using like() searches?
     finally:
         session.close()
 
