@@ -140,3 +140,7 @@ def display_teams(all_teams: list) -> int:
 
     print("finally got the hell out of there")
     return user_team
+
+
+def create_league() -> int:
+    pass

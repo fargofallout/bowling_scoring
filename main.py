@@ -54,6 +54,10 @@ def initial_setup():
     currents_service.create_current(the_bowler.id, the_team.id, week_id, the_season.id)
 
 
+def new_league():
+    league_id = utils.create_league()
+
+
 if __name__ == "__main__":
     setup_db()
 
@@ -63,6 +67,7 @@ if __name__ == "__main__":
     # parser.add_argument("-ab", "--bowler", help="Name of new bolwer to add.")
     # parser.add_argument("-aaw", "--add_all_weeks", help="Input season in format '2022-23' - create all weeks for season")
     # parser.add_argument("-asw", "--add_single_week", help="Add a week", action="store_true")
+    parser.add_argument("-cl", "--create_league", help="Set up a new league", action="store_true")
     # parser.add_argument("-d", "--display", help="Display a week's games.", action="store_true")
     # parser.add_argument("-g", "--game", help="Add a game.", action="store_true")
     # parser.add_argument("-gab", "--bowlers", help="Get all bowlers", action="store_true")
@@ -80,6 +85,8 @@ if __name__ == "__main__":
     #
     if args.new:
         new_week()
+    elif args.create_league:
+        print("creating a new league")
     # elif args.display:
     #     print("doing stuff with a previous week")
     # elif args.bowler:
