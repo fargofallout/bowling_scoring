@@ -5,7 +5,7 @@ import datetime
 
 import data.db_session as db_session
 from data.team import Team
-from services import bowler_service, team_service, utils, season_service, currents_service, week_service
+from services import bowler_service, team_service, utils, season_service, currents_service, week_service, league_season_service, league_service
 
 def new_week():
     current_season = currents_service.get_current_season()
@@ -56,12 +56,11 @@ def initial_setup():
 
 def new_league():
     league_id = utils.create_league()
+    print(f"this this the id? {league_id}")
 
 
 if __name__ == "__main__":
     setup_db()
-
-    season_service.search_for_season("2022-23")
 
     parser = argparse.ArgumentParser()
     # parser.add_argument("-ab", "--bowler", help="Name of new bolwer to add.")
@@ -80,13 +79,31 @@ if __name__ == "__main__":
     # parser.add_argument("-sb", "--searchbowler", help="Bowler name to search for.")
     # parser.add_argument("-t", "--team", help="Name of new team to add.")
     # parser.add_argument("-ts", "--teamseason", help="Add a season for a team.", action="store_true")
+    parser.add_argument("-tmp", "--tempfunc", action="store_true")
     #
     args = parser.parse_args()
     #
     if args.new:
         new_week()
+    elif args.tempfunc:
+        print("yup")
+        # this creates two leagues, a season, and two league seasons
+        # first_league = league_service.add_league("the first league")
+        # second_league = league_service.add_league("the second league")
+        # season_id = season_service.add_season("2022-23")
+        # league_season_service.add_league_season(season_id.id, first_league.id)
+        # league_season_service.add_league_season(season_id.id, second_league.id)
+
+        # this tests the relationship on the league season to see how it works
+        # a_league_season = league_season_service.get_league_season_from_id(2)
+        # print(f"league season id: {a_league_season.id}")
+        # print(f"league season season id: {a_league_season.season_id}")
+        # print(f"league season league id: {a_league_season.league_id}")
+        # print(f"league season league? {a_league_season.league}")
+        # print(f"league season league name? {a_league_season.league.name}")
+
     elif args.create_league:
-        print("creating a new league")
+        new_league()
     # elif args.display:
     #     print("doing stuff with a previous week")
     # elif args.bowler:
@@ -118,6 +135,6 @@ if __name__ == "__main__":
         bowler_service.get_single_bowler(args.getsinglebowler)
     # elif args.addsingleweek:
     #     add_week()
-    elif args.add_all_weeks:
-        week_service.add_all_weeks()
+    # elif args.add_all_weeks:
+    #     week_service.add_all_weeks()
 

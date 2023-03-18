@@ -1,7 +1,7 @@
 import datetime
 import regex
 
-from services import team_service
+from services import team_service, league_service
 
 
 def get_date() -> datetime:
@@ -143,4 +143,26 @@ def display_teams(all_teams: list) -> int:
 
 
 def create_league() -> int:
-    pass
+    use_name = False
+    league_name = ""
+    while not use_name:
+        league_name = input("Enter the league name: ")
+        league_name = league_name.strip()
+        league_search = league_service.search_for_league(league_name)
+
+        if not league_search:
+            use_name = True
+            continue
+
+        print("That name already exists.")
+        user_choice = input("Create a league with the same name anyway? Enter yes or no: ")
+        user_choice = user_choice.strip().lower()
+
+        if user_choice in ["y", "yes"]:
+            use_name = True
+        else:
+            use_name = False
+
+    new_league = league_service.add_league(league_name)
+    return new_league.id
+

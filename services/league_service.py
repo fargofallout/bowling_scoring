@@ -34,3 +34,12 @@ def get_single_leage_from_id(league_id: int) -> Optional[League]:
         session.close()
     return league
 
+
+def search_for_league(league_name: str) -> list:
+    session = db_session.create_session()
+    try:
+        league_hit = session.scalars(sa.select(League).filter(League.name.like(league_name))).all()
+    finally:
+        session.close()
+    return league_hit
+

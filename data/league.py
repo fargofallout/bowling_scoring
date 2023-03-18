@@ -2,7 +2,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List
 
 from data.modelbase import SqlAlchemyBase
-from data.league_season import League_Season
+# from data.league_season import League_Season
 
 
 class League(SqlAlchemyBase):
