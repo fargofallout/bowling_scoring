@@ -5,15 +5,16 @@ import datetime
 
 import data.db_session as db_session
 from data.team import Team
-from services import bowler_service, team_service, utils, season_service, currents_service, week_service, league_season_service, league_service
+from services import bowler_service, team_service, utils, season_service, week_service, league_season_service, league_service, team_season_service
 
 def new_week():
-    current_season = currents_service.get_current_season()
-    all_weeks = week_service.get_all_weeks(current_season)
-    selected_week = utils.display_weeks(all_weeks)
-
-    all_teams = team_service.get_teams()
-    selected_team = utils.display_teams(all_teams)
+    # clean this up!!!
+    print("need to fix this function")
+    # all_weeks = week_service.get_all_weeks(current_season)
+    # selected_week = utils.display_weeks(all_weeks)
+    #
+    # all_teams = team_service.get_teams()
+    # selected_team = utils.display_teams(all_teams)
 
 
 def add_week():
@@ -30,10 +31,13 @@ def setup_db():
 
 def initial_setup():
     print("Setup for the rest of 2022-23 - if bowling in 2023-24, need to create that information differently")
-    # TODO: change this so I get the values from the command prompt so I can reuse this in future seasons
     # create season
     season_string = "2022-23"
     the_season = season_service.add_season(season_string)
+
+    # create league
+    league_string = "Flaherty's Arden Bowl"
+    the_league = league_service.add_league(league_string)
 
     # create all weeks for season
     num_weeks = 32
@@ -48,10 +52,9 @@ def initial_setup():
     team_name = "Big Ern"
     the_team = team_service.add_team(team_name)
 
-    # get current week_id and set values for currents
-    current_week = 25
-    week_id = week_service.get_week(current_week)
-    currents_service.create_current(the_bowler.id, the_team.id, week_id, the_season.id)
+    # create team_season
+    team_season = team_season_service.add_team_season(the_team.id, the_season.id)
+    # CONTINUE HERE: keep on fixing this function, then move on to add_week()
 
 
 def new_league():

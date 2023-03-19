@@ -26,7 +26,7 @@ def get_all_leagues() -> list:
     return list(all_leagues)
 
 
-def get_single_leage_from_id(league_id: int) -> Optional[League]:
+def get_single_league_from_id(league_id: int) -> Optional[League]:
     session = db_session.create_session()
     try:
         league = session.get(League, league_id)

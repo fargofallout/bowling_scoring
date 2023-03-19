@@ -1,6 +1,5 @@
 import data.team
 import data.bowler
-import data.currents
 import data.season
 import data.bowler_season
 import data.game

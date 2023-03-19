@@ -6,7 +6,7 @@ from data.week import Week
 import data.db_session as db_session
 
 
-def add_week(week_num, date) -> Optional[Week]:
+def add_week(week_num: int, date: datetime) -> Optional[Week]:
     new_week = Week(week_number=week_num, date=date)
     session = db_session.create_session()
 
