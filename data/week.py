@@ -10,4 +10,4 @@ class Week(SqlAlchemyBase):
     id: Mapped[int] = mapped_column(primary_key=True)
     week_number: Mapped[str] = mapped_column()
     date: Mapped[datetime] = mapped_column()
-    season_id: Mapped[datetime] = mapped_column(ForeignKey("season.id"))
+    league_id: Mapped[int] = mapped_column(ForeignKey("league.id"))

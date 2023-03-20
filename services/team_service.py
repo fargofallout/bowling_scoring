@@ -26,7 +26,7 @@ def get_teams() -> list:
     return list(all_teams)
 
 
-def search_for_team(team_name: str):
+def search_for_team(team_name: str) -> Optional[list]:
     session = db_session.create_session()
     search_string = f"{team_name}"
     try:

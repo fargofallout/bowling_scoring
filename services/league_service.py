@@ -41,5 +41,5 @@ def search_for_league(league_name: str) -> list:
         league_hit = session.scalars(sa.select(League).filter(League.name.like(league_name))).all()
     finally:
         session.close()
-    return league_hit
+    return list(league_hit)
 

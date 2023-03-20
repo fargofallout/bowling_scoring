@@ -10,7 +10,7 @@ def add_game(score: int,
              season: str,
              bowler_id: int,
              team_id: int,
-             game_date: Optional[datetime] = None) -> None:
+             game_date: Optional[datetime] = None) -> Optional[Game]:
 
     if not game_date:
         game_date = datetime.datetime.now()
@@ -23,3 +23,5 @@ def add_game(score: int,
         session.commit()
     finally:
         session.close()
+
+    return new_game

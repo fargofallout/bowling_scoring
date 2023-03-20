@@ -4,8 +4,7 @@ import sqlalchemy as sa
 import datetime
 
 import data.db_session as db_session
-from data.team import Team
-from services import bowler_service, team_service, utils, season_service, week_service, league_season_service, league_service, team_season_service
+from services import bowler_service, team_service, utils, week_service, league_service
 
 def new_week():
     # clean this up!!!
@@ -31,18 +30,15 @@ def setup_db():
 
 def initial_setup():
     print("Setup for the rest of 2022-23 - if bowling in 2023-24, need to create that information differently")
-    # create season
-    season_string = "2022-23"
-    the_season = season_service.add_season(season_string)
 
     # create league
-    league_string = "Flaherty's Arden Bowl Tuesday Nights"
+    league_string = "2022-2023 Flaherty's Arden Bowl Men's Tuesday Nights"
     the_league = league_service.add_league(league_string)
 
     # create all weeks for season
     num_weeks = 32
     starting_date = datetime.datetime(2022, 9, 6)
-    week_service.add_all_weeks(starting_date, num_weeks, the_season.id)
+    week_service.add_all_weeks(starting_date, num_weeks, the_league.id)
 
     # create bowler
     bowler_name = "Mike Vacha"
@@ -51,12 +47,6 @@ def initial_setup():
     # create team
     team_name = "Big Ern"
     the_team = team_service.add_team(team_name)
-
-    # create team_season
-    team_season = team_season_service.add_team_season(the_team.id, the_season.id)
-
-    # create league season
-    league_season = league_season_service.add_league_season(the_season.id, the_league.id)
 
 
 def new_league():
@@ -92,20 +82,6 @@ if __name__ == "__main__":
         new_week()
     elif args.tempfunc:
         print("yup")
-        # this creates two leagues, a season, and two league seasons
-        # first_league = league_service.add_league("the first league")
-        # second_league = league_service.add_league("the second league")
-        # season_id = season_service.add_season("2022-23")
-        # league_season_service.add_league_season(season_id.id, first_league.id)
-        # league_season_service.add_league_season(season_id.id, second_league.id)
-
-        # this tests the relationship on the league season to see how it works
-        # a_league_season = league_season_service.get_league_season_from_id(2)
-        # print(f"league season id: {a_league_season.id}")
-        # print(f"league season season id: {a_league_season.season_id}")
-        # print(f"league season league id: {a_league_season.league_id}")
-        # print(f"league season league? {a_league_season.league}")
-        # print(f"league season league name? {a_league_season.league.name}")
 
     elif args.create_league:
         new_league()
