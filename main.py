@@ -36,7 +36,7 @@ def initial_setup():
     the_season = season_service.add_season(season_string)
 
     # create league
-    league_string = "Flaherty's Arden Bowl"
+    league_string = "Flaherty's Arden Bowl Tuesday Nights"
     the_league = league_service.add_league(league_string)
 
     # create all weeks for season
@@ -54,7 +54,9 @@ def initial_setup():
 
     # create team_season
     team_season = team_season_service.add_team_season(the_team.id, the_season.id)
-    # CONTINUE HERE: keep on fixing this function, then move on to add_week()
+
+    # create league season
+    league_season = league_season_service.add_league_season(the_season.id, the_league.id)
 
 
 def new_league():

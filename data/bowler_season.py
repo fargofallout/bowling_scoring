@@ -8,9 +8,10 @@ class Bowler_Season(SqlAlchemyBase):
     __tablename__ = "bowler_season"
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    season_id: Mapped[int] = mapped_column(ForeignKey("season.id"))
     bowler_id: Mapped[int] = mapped_column(ForeignKey("bowler.id"))
+    season_id: Mapped[int] = mapped_column(ForeignKey("season.id"))
     team_id: Mapped[int] = mapped_column(ForeignKey("team.id"))
+    league_id: Mapped[int] = mapped_column(ForeignKey("league.id"))
 
     # don't think I'm going to need these since none of these will have fields
     # that map back to this class
