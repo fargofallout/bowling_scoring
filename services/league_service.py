@@ -17,6 +17,16 @@ def add_league(league_name: str) -> Optional[League]:
     return new_league
 
 
+def change_league_name(leauge_id: int, new_name: str) -> None:
+    session = db_session.create_session()
+    try:
+        the_league = session.execute(sa.select(League).filter_by(id=leauge_id)).scalar_one()
+        the_league.name = new_name
+        session.commit()
+    finally:
+        session.close()
+
+
 def get_all_leagues() -> list:
     session = db_session.create_session()
     try:

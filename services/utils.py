@@ -51,6 +51,25 @@ def get_date() -> datetime:
     return date_as_datetime
 
 
+def prompt_for_current_league(all_leagues):
+    all_ids = [x.id for x in all_leagues]
+    valid_choice = False
+    user_choice = ""
+    while not valid_choice:
+        for each_leauge in all_leagues:
+            print("\n" + f"{each_leauge.id}\t{each_leauge.name}")
+        print("Enter the number of a league from above")
+        user_choice = input("Number: ")
+        user_choice = user_choice.strip()
+        if not user_choice.isdigit() or not int(user_choice) in all_ids:
+            print("\nNot a valid choice - please try again")
+            valid_choice = False
+        else:
+            valid_choice = True
+    print(f"you selected {user_choice}")
+    return int(user_choice)
+
+
 def get_week_num() -> int:
     num_regex = regex.compile(r"\d{1,2}")
     week_number = input("Week number: ")

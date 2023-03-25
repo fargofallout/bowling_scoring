@@ -7,8 +7,9 @@ import data.db_session as db_session
 from services import bowler_service, team_service, utils, week_service, league_service
 
 def new_week():
-    # clean this up!!!
-    print("need to fix this function")
+    all_leagues = league_service.get_all_leagues()
+    selected_league = utils.prompt_for_current_league(all_leagues)
+
     # all_weeks = week_service.get_all_weeks(current_season)
     # selected_week = utils.display_weeks(all_weeks)
     #
@@ -80,8 +81,12 @@ if __name__ == "__main__":
     #
     if args.new:
         new_week()
+    elif args.initialize:
+        initial_setup()
     elif args.tempfunc:
-        print("yup")
+        print("changing league name")
+        new_name = "whatever"
+        league_service.change_league_name(1, new_name)
 
     elif args.create_league:
         new_league()
@@ -104,8 +109,6 @@ if __name__ == "__main__":
     #     print("adding a team season")
     # elif args.season:
     #     season_service.add_season(args.season)
-    elif args.initialize:
-        initial_setup()
     # elif args.bowlers:
     #     all_bowlers = bowler_services.get_all_bowlers()
     # elif args.searchbowler:

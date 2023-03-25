@@ -19,13 +19,13 @@ def add_week(week_num: int, date: datetime) -> Optional[Week]:
     return new_week
 
 
-def add_all_weeks(starting_date: datetime, num_weeks: int, league_id: int) -> None:
+def add_all_weeks(starting_date: datetime, num_weeks: int) -> None:
     session = db_session.create_session()
     try:
         for num in range(num_weeks):
             if num != 0:
                 starting_date = starting_date + datetime.timedelta(days=7)
-            new_week = Week(week_number=num+1, date=starting_date, league_id=league_id)
+            new_week = Week(week_number=num+1, date=starting_date)
             session.add(new_week)
         session.commit()
     finally:
